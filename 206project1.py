@@ -27,32 +27,12 @@ def getData(file):
 
 
 
-	# fname = open(file, 'r')
-	# list_of_dict = list()
-	# next(fname)
-	# for line in fname:
-	# 	# stripped_line = line.strip(',')
-	# 	stripped_line = line
-	# 	new_dict = dict()
-	# 	new_dict['First'] = stripped_line[0]
-	# 	new_dict['Last'] = stripped_line[1]
-	# 	new_dict['Email'] = stripped_line[2]
-	# 	new_dict['Class'] = stripped_line[3]
-	# 	new_dict['DOB'] = stripped_line[4]
-	# 	list_of_dict.append(new_dict)
-	# print(list_of_dict)
-
-
-
 #Sort based on key/column
 def mySort(data,col):
 #Input: list of dictionaries
 #Output: Return a string of the form firstName lastName
 
 	#Your code here:
-	# return row[0]['First'] + ' ' + row[0]['Last']
-
-
 	sorted_list = list()
 	sorted_list = sorted(data, key=lambda k: k[col])
 
@@ -65,6 +45,8 @@ def mySort(data,col):
 	fullName = firstName + ' ' + lastName
 	return fullName
 
+
+
 #Create a histogram
 def classSizes(data):
 # Input: list of dictionaries
@@ -73,7 +55,24 @@ def classSizes(data):
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
 
 	#Your code here:
-	pass
+
+	counts = dict()
+	for d in data:
+		counts[d['Class']] = counts.get(d['Class'], 0) + 1
+
+	lst = list()
+	for key, val in counts.items():
+		reverse_lst = (val, key)
+		lst.append(reverse_lst)
+
+	lst = sorted(lst, reverse=True)
+
+	sorted_lst = list()
+	for val, key in lst:
+		reverse_back = (key, val)
+		sorted_lst.append(reverse_back)
+
+	return sorted_lst
 
 
 
@@ -84,7 +83,24 @@ def findDay(a):
 # most often seen in the DOB
 
 	#Your code here:
-	pass
+	count_day = dict()
+	for day in a:
+		birthday = day['DOB']
+		bday = birthday.split('/')
+		day = bday[1]
+		if day not in count_day:
+			count_day[day] = 1
+		else:
+			count_day[day] += 1
+
+	lst = list()
+	for key in count_day.keys():
+		day_of_month = (key, count_day[key])
+		lst.append(day_of_month)
+
+	sorted_birthdays = sorted(lst, reverse=True, key = lambda k: k[1])
+	return int(sorted_birthdays[0][0])
+
 
 
 # Find the average age (rounded) of the Students
