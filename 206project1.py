@@ -1,4 +1,5 @@
 import os
+import csv
 
 def getData(file):
 #Input: file name
@@ -11,7 +12,37 @@ def getData(file):
 #cases.
 
 	#Your code here:
-	pass
+	list_of_dict = list()
+	with open(file) as csvfile:
+		reader = csv.DictReader(csvfile)
+		for row in reader:
+			new_dict = dict()
+			new_dict['First'] = row['First']
+			new_dict['Last'] = row['Last']
+			new_dict['Email'] = row['Email']
+			new_dict['Class'] = row['Class']
+			new_dict['DOB'] = row['DOB']
+			list_of_dict.append(new_dict)
+	return list_of_dict
+
+
+
+	# fname = open(file, 'r')
+	# list_of_dict = list()
+	# next(fname)
+	# for line in fname:
+	# 	# stripped_line = line.strip(',')
+	# 	stripped_line = line
+	# 	new_dict = dict()
+	# 	new_dict['First'] = stripped_line[0]
+	# 	new_dict['Last'] = stripped_line[1]
+	# 	new_dict['Email'] = stripped_line[2]
+	# 	new_dict['Class'] = stripped_line[3]
+	# 	new_dict['DOB'] = stripped_line[4]
+	# 	list_of_dict.append(new_dict)
+	# print(list_of_dict)
+
+
 
 #Sort based on key/column
 def mySort(data,col):
@@ -19,7 +50,20 @@ def mySort(data,col):
 #Output: Return a string of the form firstName lastName
 
 	#Your code here:
-	pass
+	# return row[0]['First'] + ' ' + row[0]['Last']
+
+
+	sorted_list = list()
+	sorted_list = sorted(data, key=lambda k: k[col])
+
+	top_name = dict()
+	top_name = sorted_list[0]
+
+	firstName = top_name['First']
+	lastName = top_name['Last']
+
+	fullName = firstName + ' ' + lastName
+	return fullName
 
 #Create a histogram
 def classSizes(data):
