@@ -1,5 +1,6 @@
 import os
 import csv
+import datetime
 
 def getData(file):
 #Input: file name
@@ -110,7 +111,31 @@ def findAge(a):
 # most often seen in the DOB
 
 	#Your code here:
-	pass
+	age = list()
+
+	from datetime import date
+
+	today = date.today()
+	sum_of_ages = 0
+	count_of_people = 0
+
+	for person in a:
+		birthday = person['DOB']
+		bday = birthday.split('/')
+		month = int(bday[0])
+		day = int(bday[1])
+		year = int(bday[2])
+		age = today.year - year - ((today.month, today.day) < (month, day))
+		sum_of_ages += age
+		count_of_people += 1
+
+	average_age = round(float(sum_of_ages / count_of_people))
+
+	return average_age
+
+
+
+
 
 #Similar to mySort, but instead of returning single
 #Student, all of the sorted data is saved to a csv file.
