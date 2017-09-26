@@ -1,6 +1,7 @@
 import os
 import csv
 import datetime
+import filecmp
 
 def getData(file):
 #Input: file name
@@ -144,7 +145,35 @@ def mySortPrint(a,col,fileName):
 #Output: None
 
 	#Your code here:
-	pass
+	list_of_dict = list()
+	for row in a:
+		new_dict = dict()
+		new_dict['First'] = row['First']
+		new_dict['Last'] = row['Last']
+		new_dict['Email'] = row['Email']
+		list_of_dict.append(new_dict)
+
+	a = list_of_dict
+
+	a = sorted(a, key=lambda k: k[col])
+
+	keys = a[0].keys()
+	with open(fileName, "w", newline='\n') as output_file:
+		writer = csv.DictWriter(output_file, keys, delimiter = ',', lineterminator = '\n')
+		writer.writerows(a)
+
+	# list_of_dict = list()
+	# with open(file) as csvfile:
+	# 	reader = csv.DictReader(csvfile)
+	# 	for row in reader:
+	# 		new_dict = dict()
+	# 		new_dict['First'] = row['First']
+	# 		new_dict['Last'] = row['Last']
+	# 		new_dict['Email'] = row['Email']
+	# 		new_dict['Class'] = row['Class']
+	# 		new_dict['DOB'] = row['DOB']
+	# 		list_of_dict.append(new_dict)
+	# return list_of_dict
 
 
 
